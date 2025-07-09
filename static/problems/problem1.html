@@ -30,19 +30,42 @@
                 <input type="text" id="answerInput" placeholder="정답을 입력하세요">
                 <button id="submitBtn">정답 확인</button>
             </div>
+            
+            <!-- 결과를 표시할 div 추가 -->
+            <div class="result-message" id="problemResult" style="max-width: 400px; margin: 1rem auto 0;"></div>
+
             <div style="text-align: center;">
                 <a href="../index.html" class="back-button">목록으로 돌아가기</a>
             </div>
         </div>
     </main>
 
+    <!-- 스크립트 수정 -->
     <script>
-        document.getElementById('submitBtn').addEventListener('click', function() {
-            const userAnswer = document.getElementById('answerInput').value;
+        const submitBtn = document.getElementById('submitBtn');
+        const answerInput = document.getElementById('answerInput');
+        const resultDiv = document.getElementById('problemResult');
+
+        // 결과 메시지 표시 함수
+        function showProblemResult(message, type) {
+            resultDiv.textContent = message;
+            resultDiv.className = `result-message ${type} show`;
+        }
+
+        submitBtn.addEventListener('click', function() {
+            const userAnswer = answerInput.value;
+            
             if (userAnswer.toUpperCase() === 'FIVEONEFOUR') {
-                alert('정답입니다! 첫 번째 숫자는 "9" 입니다.');
+                showProblemResult('정답입니다! 첫 번째 숫자는 "9" 입니다.', 'success');
             } else {
-                alert('오답입니다. 다시 시도해보세요.');
+                showProblemResult('오답입니다. 다시 시도해보세요.', 'error');
+            }
+        });
+
+        // Enter 키로도 제출 가능하게
+        answerInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                submitBtn.click();
             }
         });
     </script>

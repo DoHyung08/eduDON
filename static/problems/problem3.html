@@ -109,19 +109,40 @@
         </div>
     </main>
 
+    <!-- 스크립트 수정 -->
     <script>
-        document.getElementById('submitBtn').addEventListener('click', function() {
-            const userAnswer = document.getElementById('answerInput').value;
-            // 정답을 'ZERO'로 변경 (대소문자 구분 없이)
+        const submitBtn = document.getElementById('submitBtn');
+        const answerInput = document.getElementById('answerInput');
+        const resultDiv = document.getElementById('problemResult');
+
+        // 결과 메시지 표시 함수
+        function showProblemResult(message, type) {
+            resultDiv.textContent = message;
+            resultDiv.className = `result-message ${type} show`;
+        }
+
+        submitBtn.addEventListener('click', function() {
+            const userAnswer = answerInput.value;
+            
             if (userAnswer.toUpperCase() === 'ZERO') {
-                alert('정답입니다! 첫 번째 숫자는 "0" 입니다.');
+                showProblemResult('정답입니다! 세 번째 숫자는 "0" 입니다.', 'success');
             } else {
-                alert('오답입니다. 다시 시도해보세요.');
+                showProblemResult('오답입니다. 다시 시도해보세요.', 'error');
             }
-            // ????? 왜 커밋이 안되는걸까
+        });
+
+        // Enter 키로도 제출 가능하게
+        answerInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                submitBtn.click();
+            }
+        });
+
+        // ????? 왜 커밋이 안되는걸까
             // 내가 모르는 자동 커밋이라도 있는 걸까
             // 아오 진짜 이상한 곳에서 하고 있었네
-        });
+            /// ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻㄴㅇㄹ
     </script>
+
 </body>
 </html>

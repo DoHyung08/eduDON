@@ -118,33 +118,24 @@ document.addEventListener('DOMContentLoaded', function() {
         fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
         fire(0.1, { spread: 120, startVelocity: 45 });
 
-        // 2. 풍선 효과
+        // 2. 풍선 효과(수정)
         function launchBalloons() {
             const balloonDefaults = {
-                particleCount: 2,
+                particleCount: 30, // 풍선 개수 증가
                 angle: 90,
-                spread: 120,
-                startVelocity: 5,
+                spread: 100,
+                startVelocity: 15,
                 decay: 0.9,
-                gravity: -0.15, // 풍선이 위로 떠오르게 하는 핵심 속성
-                ticks: 200,
-                shapes: ['circle'], // 풍선 모양
-                scalar: 1.8 // 풍선 크기
+                gravity: -0.2, // 위로 올라가는 힘 강화
+                ticks: 300,
+                shapes: ['circle'],
+                scalar: 2 // 풍선 크기 증가
             };
             
-            // 왼쪽, 중앙, 오른쪽에서 풍선 발사
-            confetti(Object.assign({}, balloonDefaults, { 
-                origin: { x: 0.1, y: 1.2 },
-                colors: ['#667eea', '#ffffff']
-            }));
-            confetti(Object.assign({}, balloonDefaults, { 
-                origin: { x: 0.5, y: 1.2 },
-                colors: ['#764ba2', '#f0f0f0']
-            }));
-            confetti(Object.assign({}, balloonDefaults, { 
-                origin: { x: 0.9, y: 1.2 },
-                colors: ['#667eea', '#ffffff']
-            }));
+            // 3군데에서 색깔별로 발사
+            confetti(Object.assign({}, balloonDefaults, { origin: { x: 0.1, y: 1.2 }, colors: ['#667eea', '#ffffff'] }));
+            confetti(Object.assign({}, balloonDefaults, { origin: { x: 0.5, y: 1.2 }, colors: ['#764ba2', '#f0f0f0'] }));
+            confetti(Object.assign({}, balloonDefaults, { origin: { x: 0.9, y: 1.2 }, colors: ['#869dff', '#ffffff'] }));
         }
 
         // 약간의 시간차를 두고 풍선 발사
