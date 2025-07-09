@@ -52,44 +52,53 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // password 입력 js
     const passwordInputs = document.querySelectorAll('.password-input');
-    const submitPasswordBtn = document.getElementById('submitBtn');
+    const submitBtn = document.getElementById('submitBtn');
     const resultMessage = document.getElementById('resultMessage');
-    const CORRECT_PASSWORD = "GAME"; // 최종 비밀번호를 여기에 설정하세요.
+    const CORRECT_PASSWORD = "1234"; // 최종 비밀번호를 여기에 설정하세요.
 
-    // 입력 시 다음 칸으로 자동 이동
     passwordInputs.forEach((input, index) => {
-        input.addEventListener('input', () => {
-            // 글자가 입력되면 다음 칸으로 포커스 이동
-            if (input.value.length === 1 && index < passwordInputs.length - 1) {
+        input.addEventListener('input', function(e) {
+            // 숫자만 입력 가능
+            this.value = this.value.replace(/[^0-9]/g, '');
+            
+            // 다음 입력 필드로 자동 이동
+            if (this.value && index < passwordInputs.length - 1) {
                 passwordInputs[index + 1].focus();
             }
         });
-
-        // 백스페이스 키 처리
-        input.addEventListener('keydown', (e) => {
-            // 백스페이스를 누르고 칸이 비어있으면 이전 칸으로 이동
-            if (e.key === 'Backspace' && input.value.length === 0 && index > 0) {
+        
+        input.addEventListener('keydown', function(e) {
+            // 백스페이스로 이전 필드로 이동
+            if (e.key === 'Backspace' && !this.value && index > 0) {
                 passwordInputs[index - 1].focus();
             }
         });
     });
-
-    // 최종 비밀번호 제출 버튼 클릭 이벤트
-    submitPasswordBtn.addEventListener('click', function() {
-        let enteredPassword = '';
-        passwordInputs.forEach(input => {
-            enteredPassword += input.value;
-        });
-
-        resultMessage.textContent = ''; // 이전 메시지 초기화
-        resultMessage.classList.remove('success', 'error');
-
-        if (enteredPassword.toUpperCase() === CORRECT_PASSWORD) {
-            resultMessage.textContent = '정답입니다! 모든 문제를 해결하셨습니다!';
-            resultMessage.classList.add('success');
+    
+    // 제출 버튼 클릭 이벤트
+    submitBtn.addEventListener('click', function() {
+        const password = Array.from(passwordInputs).map(input => input.value).join('');
+        
+        if (password.length !== 4) {
+            showResult('4자리 비밀번호를 모두 입력해주세요.', 'error');
+            return;
+        }
+        
+        if (password === CORRECT_PASSWORD) {
+            showResult('통과!', 'success');
         } else {
-            resultMessage.textContent = '비밀번호가 일치하지 않습니다.';
-            resultMessage.classList.add('error');
+            showResult('비밀번호가 올바르지 않습니다.', 'error');
         }
     });
+    
+    // 결과 메시지 표시 함수
+    function showResult(message, type) {
+        resultMessage.textContent = message;
+        resultMessage.className = `result-message ${type} show`;
+        
+        // 3초 후 메시지 숨기기
+        setTimeout(() => {
+            resultMessage.classList.remove('show');
+        }, 3000);
+    }
 }); 
