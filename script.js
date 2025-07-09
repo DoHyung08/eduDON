@@ -88,6 +88,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 showResult('비밀번호가 올바르지 않습니다.', 'error');
             }
         });
+
+        // 여기도 Enter 눌렀을 때 눌리도록
+        answerInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                submitBtn.click();
+            }
+        });
     }
     
     // 결과 메시지 표시 함수
