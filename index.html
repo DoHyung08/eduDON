@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>암호 문제 사이트</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 정보 바 -->
+    <header class="info-bar">
+        <div class="info-left"></div>
+        <div class="info-center">
+            <h1>NAME</h1>
+        </div>
+        <div class="info-right">
+            <button class="menu-btn" id="menuBtn">
+                <span class="menu-icon">☰</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- 메뉴 드롭다운 -->
+    <div class="menu-dropdown" id="menuDropdown">
+        <button class="menu-item" id="loginBtn">로그인</button>
+        <button class="menu-item" id="myInfoBtn">나의 정보</button>
+    </div>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="main-content">
+        <div class="problem-grid">
+            <div class="problem-card" data-problem="1">
+                <h3>문제 1</h3>
+                <p>첫 번째 암호 문제</p>
+            </div>
+            <div class="problem-card" data-problem="2">
+                <h3>문제 2</h3>
+                <p>두 번째 암호 문제</p>
+            </div>
+            <div class="problem-card" data-problem="3">
+                <h3>문제 3</h3>
+                <p>세 번째 암호 문제</p>
+            </div>
+            <div class="problem-card" data-problem="4">
+                <h3>문제 4</h3>
+                <p>네 번째 암호 문제</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html> 
