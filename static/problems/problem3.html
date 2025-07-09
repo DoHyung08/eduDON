@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문제 3 - 암호 문제 사이트</title>
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <!-- 정보 바 -->
+    <header class="info-bar">
+        <div class="info-left"></div>
+        <div class="info-center">
+            <h1>NAME</h1>
+        </div>
+        <div class="info-right"></div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="main-content">
+        <div class="problem-container">
+            <h2>문제 3: 거꾸로 암호</h2>
+            <p>
+                가장 단순한 암호 중 하나입니다. 주어진 문장을 단순히 거꾸로 읽으면 됩니다.<br>
+                아래 암호문을 해독하여 원래의 단어를 찾아보세요.<br><br>
+                <strong>암호문: margorp</strong>
+            </p>
+            <div class="answer-form">
+                <input type="text" id="answerInput" placeholder="정답을 입력하세요">
+                <button id="submitBtn">정답 확인</button>
+            </div>
+            <div style="text-align: center;">
+                <a href="../index.html" class="back-button">목록으로 돌아가기</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            const userAnswer = document.getElementById('answerInput').value;
+            if (userAnswer.toLowerCase() === 'program') {
+                alert('정답입니다!');
+            } else {
+                alert('오답입니다. 다시 시도해보세요.');
+            }
+        });
+    </script>
+</body>
+</html>

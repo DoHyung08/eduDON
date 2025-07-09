@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문제 2 - 암호 문제 사이트</title>
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <!-- 정보 바 -->
+    <header class="info-bar">
+        <div class="info-left"></div>
+        <div class="info-center">
+            <h1>NAME</h1>
+        </div>
+        <div class="info-right"></div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="main-content">
+        <div class="problem-container">
+            <h2>문제 2: Base64 인코딩</h2>
+            <p>
+                Base64는 8비트 이진 데이터를 문자 코드에 영향을 받지 않는 공통 ASCII 영역의 문자들로만 이루어진 일련의 문자열로 바꾸는 인코딩 방식입니다.<br>
+                아래 Base64로 인코딩된 문자열을 디코딩하여 원래의 문장을 찾아보세요.<br><br>
+                <strong>암호문: ZWR1RE9OIGlzIGZ1bg==</strong>
+            </p>
+            <div class="answer-form">
+                <input type="text" id="answerInput" placeholder="정답을 입력하세요">
+                <button id="submitBtn">정답 확인</button>
+            </div>
+            <div style="text-align: center;">
+                <a href="../index.html" class="back-button">목록으로 돌아가기</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            const userAnswer = document.getElementById('answerInput').value;
+            if (userAnswer.toLowerCase() === 'edudon is fun') {
+                alert('정답입니다!');
+            } else {
+                alert('오답입니다. 다시 시도해보세요.');
+            }
+        });
+    </script>
+</body>
+</html>
