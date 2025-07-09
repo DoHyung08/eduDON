@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const passwordInputs = document.querySelectorAll('.password-input');
     const submitBtn = document.getElementById('submitBtn');
     const resultMessage = document.getElementById('resultMessage');
-    const CORRECT_PASSWORD = "1234"; // 최종 비밀번호
+    const CORRECT_PASSWORD = "9900"; // 최종 비밀번호
 
     // passwordInputs가 페이지에 있을 때만 로직 실행
     if (passwordInputs.length > 0) {
@@ -128,12 +128,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // 2. 풍선 효과(수정)
         function launchBalloons() {
             const balloonDefaults = {
-                particleCount: 30, // 풍선 개수 증가
+                particleCount: 5, // 풍선 개수 증가
                 angle: 90,
                 spread: 100,
                 startVelocity: 15,
                 decay: 0.9,
-                gravity: -0.2, // 위로 올라가는 힘 강화
+                gravity: -2, // 위로 올라가는 힘 강화
                 ticks: 300,
                 shapes: ['circle'],
                 scalar: 2 // 풍선 크기 증가
