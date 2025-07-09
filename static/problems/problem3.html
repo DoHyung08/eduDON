@@ -3,8 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>문제 3 - 암호 문제 사이트</title>
+    <title>문제 3 - 모스 부호</title>
     <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* 모스 부호 표 스타일 */
+        .morse-table-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap; 
+        }
+        .morse-table {
+            border-collapse: collapse;
+            width: 300px;
+        }
+        .morse-table th, .morse-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        .morse-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .morse-table td:first-child {
+            font-weight: bold;
+            width: 40%;
+        }
+        audio {
+            width: 100%;
+            max-width: 500px;
+            margin: 1.5rem auto;
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <!-- 정보 바 -->
@@ -19,12 +52,53 @@
     <!-- 메인 컨텐츠 -->
     <main class="main-content">
         <div class="problem-container">
-            <h2>문제 3: 거꾸로 암호</h2>
+            <h2>문제 3: 모스 부호</h2>
             <p>
-                가장 단순한 암호 중 하나입니다. 주어진 문장을 단순히 거꾸로 읽으면 됩니다.<br>
-                아래 암호문을 해독하여 원래의 단어를 찾아보세요.<br><br>
-                <strong>암호문: margorp</strong>
+                주어진 오디오 파일을 재생하면 모스 부호 소리가 들립니다.<br>
+                아래 변환 표를 참고하여 들리는 소리를 알파벳으로 해독하고, 조합된 단어를 찾아보세요.
             </p>
+            
+            <!-- 오디오 플레이어 -->
+            <audio controls src="../audio/3.wav">
+                브라우저가 오디오 태그를 지원하지 않습니다.
+            </audio>
+
+            <h3>알파벳 모스 부호 변환 표</h3>
+            <div class="morse-table-container">
+                <table class="morse-table">
+                    <tr><th>알파벳</th><th>모스 부호</th></tr>
+                    <tr><td>A</td><td>.-</td></tr>
+                    <tr><td>B</td><td>-...</td></tr>
+                    <tr><td>C</td><td>-.-.</td></tr>
+                    <tr><td>D</td><td>-..</td></tr>
+                    <tr><td>E</td><td>.</td></tr>
+                    <tr><td>F</td><td>..-.</td></tr>
+                    <tr><td>G</td><td>--.</td></tr>
+                    <tr><td>H</td><td>....</td></tr>
+                    <tr><td>I</td><td>..</td></tr>
+                    <tr><td>J</td><td>.---</td></tr>
+                    <tr><td>K</td><td>-.-</td></tr>
+                    <tr><td>L</td><td>.-..</td></tr>
+                    <tr><td>M</td><td>--</td></tr>
+                </table>
+                <table class="morse-table">
+                    <tr><th>알파벳</th><th>모스 부호</th></tr>
+                    <tr><td>N</td><td>-.</td></tr>
+                    <tr><td>O</td><td>---</td></tr>
+                    <tr><td>P</td><td>.--.</td></tr>
+                    <tr><td>Q</td><td>--.-</td></tr>
+                    <tr><td>R</td><td>.-.</td></tr>
+                    <tr><td>S</td><td>...</td></tr>
+                    <tr><td>T</td><td>-</td></tr>
+                    <tr><td>U</td><td>..-</td></tr>
+                    <tr><td>V</td><td>...-</td></tr>
+                    <tr><td>W</td><td>.--</td></tr>
+                    <tr><td>X</td><td>-..-</td></tr>
+                    <tr><td>Y</td><td>-.--</td></tr>
+                    <tr><td>Z</td><td>--..</td></tr>
+                </table>
+            </div>
+
             <div class="answer-form">
                 <input type="text" id="answerInput" placeholder="정답을 입력하세요">
                 <button id="submitBtn">정답 확인</button>
@@ -38,11 +112,15 @@
     <script>
         document.getElementById('submitBtn').addEventListener('click', function() {
             const userAnswer = document.getElementById('answerInput').value;
-            if (userAnswer.toLowerCase() === 'program') {
-                alert('정답입니다!');
+            // 정답을 'ZERO'로 변경 (대소문자 구분 없이)
+            if (userAnswer.toUpperCase() === 'ZERO') {
+                alert('정답입니다! 첫 번째 숫자는 "0" 입니다.');
             } else {
                 alert('오답입니다. 다시 시도해보세요.');
             }
+            // ????? 왜 커밋이 안되는걸까
+            // 내가 모르는 자동 커밋이라도 있는 걸까
+            // 아오 진짜 이상한 곳에서 하고 있었네
         });
     </script>
 </body>
