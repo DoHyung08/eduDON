@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문제 1 - 암호 문제 사이트</title>
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <!-- 정보 바 -->
+    <header class="info-bar">
+        <div class="info-left"></div>
+        <div class="info-center">
+            <h1>CBSH 방탈출</h1>
+        </div>
+        <div class="info-right"></div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="main-content">
+        <div class="problem-container">
+            <h2>문제 1: 암호 해독</h2>
+            <p>
+                주어진 암호문은 알파벳을 특정 수만큼 밀어서 만들어졌습니다.<br>
+                아래 암호문을 해독하여 원래의 단어를 찾아보세요.<br><br>
+                <strong>암호문: JMZISRIJSYV</strong><br>
+                <strong>힌트: "XLMW MW LMRX" -> "THIS IS HINT"</strong>
+            </p>
+            <div class="answer-form">
+                <input type="text" id="answerInput" placeholder="정답을 입력하세요">
+                <button id="submitBtn">정답 확인</button>
+            </div>
+            
+            <!-- 결과를 표시할 div 추가 -->
+            <div class="result-message" id="problemResult" style="max-width: 400px; margin: 1rem auto 0;"></div>
+
+            <div style="text-align: center;">
+                <a href="../index.html" class="back-button">목록으로 돌아가기</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- 스크립트 수정 -->
+    <script>
+        const submitBtn = document.getElementById('submitBtn');
+        const answerInput = document.getElementById('answerInput');
+        const resultDiv = document.getElementById('problemResult');
+
+        // 결과 메시지 표시 함수
+        function showProblemResult(message, type) {
+            resultDiv.textContent = message;
+            resultDiv.className = `result-message ${type} show`;
+        }
+
+        submitBtn.addEventListener('click', function() {
+            const userAnswer = answerInput.value;
+            
+            if (userAnswer.toUpperCase() === 'FIVEONEFOUR') {
+                showProblemResult('정답입니다! 첫 번째 숫자는 "9" 입니다.', 'success');
+            } else {
+                showProblemResult('오답입니다. 다시 시도해보세요.', 'error');
+            }
+        });
+
+        // Enter 키로도 제출 가능하게
+        answerInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                submitBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>

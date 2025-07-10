@@ -382,6 +382,93 @@ body {
     color: #c82333;
 }
 
+
+
+
+/* Problem_Page용 css
+인데, 수정은 알아서 하시길 */
+
+.problem-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+.problem-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-align: center;
+    font-weight: bold;
+}
+
+.problem-container p {
+    color: #555;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.answer-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.answer-form input {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.answer-form input:focus {
+    outline: none;
+    border-color: #764ba2;
+    box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.2);
+}
+
+.answer-form button, .back-button {
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.answer-form button {
+    background-color: #667eea;
+    color: white;
+}
+
+.answer-form button:hover {
+    background-color: #5a6ed8;
+    transform: translateY(-2px);
+}
+
+.back-button {
+    display: inline-block;
+    text-decoration: none;
+    margin-top: 2rem;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.back-button:hover {
+    background-color: #e0e0e0;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 768px) {
     .info-bar {
