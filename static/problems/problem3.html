@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문제 3 - 모스 부호</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* 모스 부호 표 스타일 */
+        .morse-table-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap; 
+        }
+        .morse-table {
+            border-collapse: collapse;
+            width: 300px;
+        }
+        .morse-table th, .morse-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        .morse-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .morse-table td:first-child {
+            font-weight: bold;
+            width: 40%;
+        }
+        audio {
+            width: 100%;
+            max-width: 500px;
+            margin: 1.5rem auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- 정보 바 -->
+    <header class="info-bar">
+        <div class="info-left"></div>
+        <div class="info-center">
+            <h1>CBSH 방탈출</h1>
+        </div>
+        <div class="info-right"></div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="main-content">
+        <div class="problem-container">
+            <h2>문제 3: 모스 부호</h2>
+            <p>
+                주어진 오디오 파일을 재생하면 모스 부호 소리가 들립니다.<br>
+                아래 변환 표를 참고하여 들리는 소리를 알파벳으로 해독하고, 조합된 단어를 찾아보세요.
+            </p>
+            
+            <!-- 오디오 플레이어 -->
+            <audio controls src="../audio/3.wav">
+                브라우저가 오디오 태그를 지원하지 않습니다.
+            </audio>
+
+            <h3>알파벳 모스 부호 변환 표</h3>
+            <div class="morse-table-container">
+                <table class="morse-table">
+                    <tr><th>알파벳</th><th>모스 부호</th></tr>
+                    <tr><td>A</td><td>.-</td></tr>
+                    <tr><td>B</td><td>-...</td></tr>
+                    <tr><td>C</td><td>-.-.</td></tr>
+                    <tr><td>D</td><td>-..</td></tr>
+                    <tr><td>E</td><td>.</td></tr>
+                    <tr><td>F</td><td>..-.</td></tr>
+                    <tr><td>G</td><td>--.</td></tr>
+                    <tr><td>H</td><td>....</td></tr>
+                    <tr><td>I</td><td>..</td></tr>
+                    <tr><td>J</td><td>.---</td></tr>
+                    <tr><td>K</td><td>-.-</td></tr>
+                    <tr><td>L</td><td>.-..</td></tr>
+                    <tr><td>M</td><td>--</td></tr>
+                </table>
+                <table class="morse-table">
+                    <tr><th>알파벳</th><th>모스 부호</th></tr>
+                    <tr><td>N</td><td>-.</td></tr>
+                    <tr><td>O</td><td>---</td></tr>
+                    <tr><td>P</td><td>.--.</td></tr>
+                    <tr><td>Q</td><td>--.-</td></tr>
+                    <tr><td>R</td><td>.-.</td></tr>
+                    <tr><td>S</td><td>...</td></tr>
+                    <tr><td>T</td><td>-</td></tr>
+                    <tr><td>U</td><td>..-</td></tr>
+                    <tr><td>V</td><td>...-</td></tr>
+                    <tr><td>W</td><td>.--</td></tr>
+                    <tr><td>X</td><td>-..-</td></tr>
+                    <tr><td>Y</td><td>-.--</td></tr>
+                    <tr><td>Z</td><td>--..</td></tr>
+                </table>
+            </div>
+
+            <div class="answer-form">
+                <input type="text" id="answerInput" placeholder="정답을 입력하세요">
+                <button id="submitBtn">정답 확인</button>
+            </div>
+
+            <!-- 수정 -->
+            <div class="result-message" id="problemResult" style="max-width: 400px; margin: 1rem auto 0;"></div>
+
+            <div style="text-align: center;">
+                <a href="../index.html" class="back-button">목록으로 돌아가기</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- 스크립트 수정 -->
+    <script>
+        const submitBtn = document.getElementById('submitBtn');
+        const answerInput = document.getElementById('answerInput');
+        const resultDiv = document.getElementById('problemResult');
+
+        // 결과 메시지 표시 함수
+        function showProblemResult(message, type) {
+            resultDiv.textContent = message;
+            resultDiv.className = `result-message ${type} show`;
+        }
+
+        submitBtn.addEventListener('click', function() {
+            const userAnswer = answerInput.value;
+            
+            if (userAnswer.toUpperCase() === 'ZERO') {
+                showProblemResult('정답입니다! 세 번째 숫자는 "0" 입니다.', 'success');
+            } else {
+                showProblemResult('오답입니다. 다시 시도해보세요.', 'error');
+            }
+        });
+
+        // Enter 키로도 제출 가능하게
+        answerInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                submitBtn.click();
+            }
+        });
+
+        // ????? 왜 커밋이 안되는걸까
+            // 내가 모르는 자동 커밋이라도 있는 걸까
+            // 아오 진짜 이상한 곳에서 하고 있었네
+            /// ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻㄴㅇㄹ
+    </script>
+
+</body>
+</html>
