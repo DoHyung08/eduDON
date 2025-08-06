@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문제 1 - 암호 문제 사이트</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* 클릭 게임 전용 스타일 */
+        #game-container {
+            position: relative;
+            display: inline-block;
+            margin: 2rem 0;
+        }
+        #clickable {
+            cursor: pointer;
+            user-select: none;
+            width: 300px;
+            height: auto;
+            opacity: 0.1;
+            transition: opacity 0.2s ease;
+            border-radius: 10px;
+        }
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+            background: hsl(var(--h, 0), 100%, 50%);
+            will-change: transform, opacity;
+        }
+        #remaining {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            color: #333;
+            font-weight: bold;
+        }
+        .game-content {
+            text-align: center;
+            padding: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 정보 바 -->
+    <header class="info-bar">
+        <div class="info-left"></div>
+        <div class="info-center">
+            <h1>CBSH 방탈출</h1>
+        </div>
+        <div class="info-right"></div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="main-content">
+        <div class="problem-container">
+            <h2>문제 1: 사진을 클릭해서 플래그를 찾아보세요!</h2>
+            <p>
+                아래 이미지를 1000번 클릭하면 숨겨진 플래그가 나타납니다.<br>
+                클릭할 때마다 이미지가 점점 선명해지며, 파티클 효과도 함께 나타납니다.
+            </p>
+            
+            <div class="game-content">
+                <div id="game-container">
+                    <img id="clickable" src="CBSHpro1/에디.jpg" alt="Click me">
+                </div>
+                <p id="remaining"></p>
+            </div>
+            
+            <!-- 결과를 표시할 div -->
+            <div class="result-message" id="problemResult" style="max-width: 400px; margin: 1rem auto 0;"></div>
+
+            <div style="text-align: center;">
+                <a href="../index.html" class="back-button">목록으로 돌아가기</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 암호화된 플래그와 복호화 함수
+        const encrypted = [23,16,17,10,23,29,24,25,14,38,4,10,52,13,24,3,29,24,10,20,8];
+        const KEY = 'mykey';
+        function decrypt(key) {
+            return String.fromCharCode(
+                ...encrypted.map((b,i) => b ^ key.charCodeAt(i % key.length))
+            );
+        }
+
+        // 게임 변수들
+        var MAX = 1000;
+        let counter = 0;
+        const remEl = document.getElementById('remaining');
+        const imgEl = document.getElementById('clickable');
+        const container = document.getElementById('game-container');
+        const resultDiv = document.getElementById('problemResult');
+
+        // 초기 상태 설정
+        remEl.textContent = `${MAX}번 클릭이 필요합니다`;
+
+        // 결과 메시지 표시 함수
+        function showProblemResult(message, type) {
+            resultDiv.textContent = message;
+            resultDiv.className = `result-message ${type} show`;
+        }
+
+        // 파티클 효과 함수
+        function explode(x, y) {
+            const count = 30;
+            for (let i = 0; i < count; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.setProperty('--h', Math.random() * 360);
+                p.style.left = x + 'px';
+                p.style.top = y + 'px';
+                container.appendChild(p);
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 2 + Math.random() * 3;
+                const vx = Math.cos(angle) * speed;
+                const vy = Math.sin(angle) * speed;
+                let life = 0;
+                (function animate() {
+                    if (life > 30) return p.remove();
+                    p.style.transform = `translate(${vx * life}px, ${vy * life}px)`;
+                    p.style.opacity = `${1 - life / 30}`;
+                    life++;
+                    requestAnimationFrame(animate);
+                })();
+            }
+        }
+
+        // 클릭 이벤트 리스너
+        imgEl.addEventListener('click', ev => {
+            const rect = container.getBoundingClientRect();
+            const x = ev.clientX - rect.left;
+            const y = ev.clientY - rect.top;
+            explode(x, y);
+
+            counter++;
+            imgEl.style.opacity = Math.min(1, 0.1 + 0.9 * (counter / MAX));
+
+            if (counter < MAX) {
+                remEl.textContent = `${MAX - counter}번 더 클릭하세요`;
+            } else {
+                const flag = decrypt(KEY);
+                remEl.textContent = `🎉 게임 완료!`;
+                showProblemResult(`정답입니다! 첫 번째 숫자는 "9" 입니다. FLAG: ${flag}`, 'success');
+                imgEl.style.pointerEvents = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
