@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Click-to-Reveal Challenge</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2em;
+    }
+    #container {
+      position: relative;
+      display: inline-block;
+    }
+    #clickable {
+      cursor: pointer;
+      user-select: none;
+      width: 300px;
+      height: auto;
+      opacity: 0.1;
+      transition: opacity 0.2s ease;
+    }
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: hsl(var(--h, 0), 100%, 50%);
+      will-change: transform, opacity;
+    }
+    #remaining {
+      font-size: 1.2rem;
+      margin-top: .5em;
+    }
+  </style>
+</head>
+<body>
+  <h1>사진을 클릭해서 플래그를 찾아보세요!</h1>
+  <div id="container">
+    <img id="clickable" src="에디.jpg" alt="Click me">
+  </div>
+  <p id="remaining"></p>
+
+  <script>
+    const encrypted = [23,16,17,10,23,29,24,25,14,38,4,10,52,13,24,3,29,24,10,20,8];
+    const KEY = 'mykey';
+    function decrypt(key) {
+      return String.fromCharCode(
+        ...encrypted.map((b,i) => b ^ key.charCodeAt(i % key.length))
+      );
+    }
+
+    const MAX = 1000;
+    let counter = 0;
+    const remEl = document.getElementById('remaining');
+    const imgEl = document.getElementById('clickable');
+    const container = document.getElementById('container');
+    remEl.textContent = `${MAX} clicks remaining`;
+    function explode(x, y) {
+      const count = 30;
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.setProperty('--h', Math.random() * 360);
+        p.style.left = x + 'px';
+        p.style.top  = y + 'px';
+        container.appendChild(p);
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 2 + Math.random() * 3;
+        const vx = Math.cos(angle) * speed;
+        const vy = Math.sin(angle) * speed;
+        let life = 0;
+        (function animate() {
+          if (life > 30) return p.remove();
+          p.style.transform = `translate(${vx * life}px, ${vy * life}px)`;
+          p.style.opacity = `${1 - life / 30}`;
+          life++;
+          requestAnimationFrame(animate);
+        })();
+      }
+    }
+
+    imgEl.addEventListener('click', ev => {
+      const rect = container.getBoundingClientRect();
+      const x = ev.clientX - rect.left;
+      const y = ev.clientY - rect.top;
+      explode(x, y);
+
+      counter++;
+      imgEl.style.opacity = Math.min(1, 0.1 + 0.9 * (counter / MAX));
+
+      if (counter < MAX) {
+        remEl.textContent = `${MAX - counter} clicks remaining`;
+      } else {
+        const flag = decrypt(KEY);
+        remEl.textContent = `🎉 FLAG: ${flag}`;
+        imgEl.style.pointerEvents = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
